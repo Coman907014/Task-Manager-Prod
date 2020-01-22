@@ -5,7 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const sendWelcomeEmail = require('../emails/emailAccount');
 
 // Create user
-userRouter.post('/users', async (req, res) => {
+userRouter.post('users', async (req, res) => {
 
     const user = await new User(req.body);
     const token = await user.generateAuthToken()
@@ -25,7 +25,7 @@ userRouter.post('/users', async (req, res) => {
 })
 
 // Login User
-userRouter.post('/users/login', async (req, res) => {
+userRouter.post('users/login', async (req, res) => {
     
     try {
         // Using the user model when we don't work with a specific user
@@ -45,7 +45,7 @@ userRouter.post('/users/login', async (req, res) => {
     }
 })
 // Logout User
-userRouter.post('/users/logout', authMiddleware, async (req, res) => {
+userRouter.post('users/logout', authMiddleware, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => {
             return token.token !== req.token
@@ -59,7 +59,7 @@ userRouter.post('/users/logout', authMiddleware, async (req, res) => {
 })
 
 // Logout User -> all sessions
-userRouter.post('/users/logout/all', authMiddleware, async (req, res) => {
+userRouter.post('users/logout/all', authMiddleware, async (req, res) => {
     try {
         req.user.tokens = []
         
@@ -71,13 +71,13 @@ userRouter.post('/users/logout/all', authMiddleware, async (req, res) => {
 })
 
 // Read User Information
-userRouter.get('/users/me', authMiddleware ,async (req, res) => {
+userRouter.get('users/me', authMiddleware ,async (req, res) => {
     
     res.status(200).send(req.user)
 })
 
 // Update User
-userRouter.patch('/users/me', authMiddleware , async (req, res) => {
+userRouter.patch('users/me', authMiddleware , async (req, res) => {
 
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'email', 'password', 'age'];
@@ -100,7 +100,7 @@ userRouter.patch('/users/me', authMiddleware , async (req, res) => {
 })
 
 // Delete user
-userRouter.delete('/users/me', authMiddleware, async (req, res) => {
+userRouter.delete('users/me', authMiddleware, async (req, res) => {
     try {
         await req.user.remove()
         res.send(user)

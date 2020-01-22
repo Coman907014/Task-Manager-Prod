@@ -5,7 +5,7 @@ const Task = require('../models/taskModel');
 const mapTaskQueryParamsForPopulateMethod = require('../utils/taskQueryParamsManipulation')
 const sendTaskCreatedEmail = require('../emails/emailTasks');
 // Create tasks route
-taskRouter.post('/tasks', authMiddleware, async (req, res) => {
+taskRouter.post('tasks', authMiddleware, async (req, res) => {
     const task =  new Task ({
         ...req.body,
         userId: req.user._id
@@ -26,7 +26,7 @@ taskRouter.post('/tasks', authMiddleware, async (req, res) => {
 })
 
 // Get all tasks route
-taskRouter.get('/tasks', authMiddleware, async (req, res) => {
+taskRouter.get('tasks', authMiddleware, async (req, res) => {
     const { mappedQueryParams, mappedSortingParams } = mapTaskQueryParamsForPopulateMethod(req.query);
     try {
         await req.user.populate({
@@ -49,7 +49,7 @@ taskRouter.get('/tasks', authMiddleware, async (req, res) => {
 })
 
 // Get task by ID
-taskRouter.get('/tasks/:id', authMiddleware , async (req, res) => {
+taskRouter.get('tasks/:id', authMiddleware , async (req, res) => {
     const taskID = req.params.id
     try {
         const requestedTask = await Task.findOne({ _id: taskID, userId: req.user._id })
@@ -62,7 +62,7 @@ taskRouter.get('/tasks/:id', authMiddleware , async (req, res) => {
 })
 
 // Update task by ID
-taskRouter.patch('/tasks/:id', authMiddleware, async (req, res) => {
+taskRouter.patch('tasks/:id', authMiddleware, async (req, res) => {
     const taskID = req.params.id;
     const updates = Object.keys(req.body);
     const allowedUpdates = ['description', 'completed']
@@ -84,7 +84,7 @@ taskRouter.patch('/tasks/:id', authMiddleware, async (req, res) => {
 })
 
 // Delete task by ID
-taskRouter.delete('/tasks/:id', authMiddleware , async (req, res) => {
+taskRouter.delete('tasks/:id', authMiddleware , async (req, res) => {
     const taskID = req.params.id;
     try {
         await Task.findOneAndDelete({ _id: taskID, userId: req.user._id})
