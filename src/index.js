@@ -8,6 +8,10 @@ const taskRouter = require('./routes/Task')
 
 app.use(express.json())
 // Routing
+
+app.user('/', (req, res) => {
+    console.log('dshajhsdajhsadjhas')
+})
 app.use(userRouter)
 app.use(taskRouter)
 
