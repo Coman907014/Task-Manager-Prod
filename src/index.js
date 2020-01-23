@@ -7,8 +7,6 @@ const userRouter = require('./routes/User');
 const taskRouter = require('./routes/Task')
 
 app.use(express.json())
-// Enabling the CORS policy
-app.use(cors())
 // Routing
 
 app.use(userRouter)
