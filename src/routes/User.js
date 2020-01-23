@@ -1,6 +1,5 @@
 const express = require('express');
 const userRouter = new express.Router();
-const User = require('../models/userModel');
 const authMiddleware = require('../middleware/authMiddleware');
 // Controllers
 const createNewUserController = require('../controllers/usersController/createUser');
@@ -12,9 +11,6 @@ const updateUserInformationController = require('../controllers/usersController/
 const deleteUserController = require('../controllers/usersController/deleteUser');
 
 userRouter.post('/users', async (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
     createNewUserController(req, res)
 })
 
